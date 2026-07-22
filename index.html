@@ -269,7 +269,6 @@
             transform: scale(0.96);
         }
 
-        /* Caldo de cana e Refrigerante */
         .card-cana,
         .card-refri {
             background: var(--branco);
@@ -356,7 +355,6 @@
             box-shadow: 0 4px 12px rgba(230, 194, 0, 0.25);
         }
 
-        /* Combos */
         .card-combo {
             background: var(--branco);
             border-radius: var(--radius);
@@ -460,7 +458,6 @@
             transform: scale(0.96);
         }
 
-        /* Banner iFood */
         .banner-ifood {
             background: linear-gradient(135deg, #fef9e7, #fdf3d0);
             border-radius: var(--radius);
@@ -525,7 +522,6 @@
             }
         }
 
-        /* Carrinho flutuante */
         .cart-fab {
             position: fixed;
             bottom: 24px;
@@ -569,7 +565,6 @@
             border: 2px solid var(--branco);
         }
 
-        /* Modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -888,7 +883,6 @@
             margin-right: 6px;
         }
 
-        /* Footer */
         .footer {
             background: var(--branco);
             border-top: 2px solid #e9f3e5;
@@ -1088,49 +1082,39 @@
     </header>
 
     <div class="container">
-        <!-- CARNES -->
         <h2 class="secao-titulo"><i class="fas fa-drumstick-bite"></i> Carnes</h2>
         <div class="grid-pasteis" id="secaoCarnes"></div>
 
-        <!-- FRANGOS -->
         <h2 class="secao-titulo"><i class="fas fa-drumstick-bite"></i> Frangos</h2>
         <div class="grid-pasteis" id="secaoFrangos"></div>
 
-        <!-- CALABRESA -->
         <h2 class="secao-titulo"><i class="fas fa-sausage"></i> Calabresa</h2>
         <div class="grid-pasteis" id="secaoCalabresa"></div>
 
-        <!-- PRESUNTO -->
         <h2 class="secao-titulo"><i class="fas fa-bacon"></i> Presunto</h2>
         <div class="grid-pasteis" id="secaoPresunto"></div>
 
-        <!-- QUEIJO -->
         <h2 class="secao-titulo"><i class="fas fa-cheese"></i> Queijo</h2>
         <div class="grid-pasteis" id="secaoQueijo"></div>
 
-        <!-- CAMARÃO -->
         <h2 class="secao-titulo"><i class="fas fa-shrimp"></i> Camarão</h2>
         <div class="grid-pasteis" id="secaoCamarao"></div>
 
-        <!-- DOCES -->
         <h2 class="secao-titulo"><i class="fas fa-candy-cane"></i> Doces</h2>
         <div class="grid-pasteis" id="secaoDoces"></div>
 
-        <!-- CALDO DE CANA -->
         <h2 class="secao-titulo" style="margin-top:2.5rem;"><i class="fas fa-glass-whiskey"></i> Caldo de Cana</h2>
         <div class="card-cana">
             <h3>Escolha o tamanho</h3>
             <div class="opcoes-cana" id="opcoesCanaContainer"></div>
         </div>
 
-        <!-- REFRIGERANTES -->
         <h2 class="secao-titulo" style="margin-top:2.5rem;"><i class="fas fa-glass-martini-alt"></i> Refrigerantes</h2>
         <div class="card-refri">
             <h3>Escolha o sabor</h3>
             <div class="opcoes-refri" id="opcoesRefriContainer"></div>
         </div>
 
-        <!-- COMBOS -->
         <h2 class="secao-titulo" style="margin-top:2.5rem;"><i class="fas fa-gem"></i> Combos</h2>
         <div class="card-combo">
             <h3><i class="fas fa-utensils" style="color:var(--amarelo-escuro);"></i> Monte seu combo</h3>
@@ -1160,7 +1144,6 @@
             </button>
         </div>
 
-        <!-- BANNER iFOOD -->
         <div class="banner-ifood">
             <div class="msg">
                 <i class="fas fa-truck"></i>
@@ -1180,7 +1163,7 @@
             <div class="footer-col">
                 <h4><i class="fas fa-map-pin"></i> Endereço</h4>
                 <p><i class="fas fa-location-dot"></i> R. Um - Chácaras Anhanguera</p>
-                <p><i class="fas fa-city"></i> Valparaíso de Goiás - GO , 74392-130</p>
+                <p><i class="fas fa-city"></i> Valparaíso de Goiás - GO, 74392-130</p>
             </div>
             <div class="footer-col">
                 <h4><i class="fas fa-phone"></i> Contato</h4>
@@ -1200,7 +1183,7 @@
                     <i class="fas fa-truck"></i> Entregamos <strong>apenas</strong> pelo iFood
                 </div>
                 <p style="margin-top:0.6rem; font-size:0.85rem; color:#7a9a74;">
-                    <i class="fas fa-clock"></i> Aberto de segunda a sábado
+                    <i class="fas fa-clock"></i> Seg a Sex: 15h - 21h | Sáb: 15h - 19h
                 </p>
             </div>
         </div>
@@ -1297,10 +1280,8 @@
             ]
         };
 
-        // Lista plana de todos os pastéis para o combo
         const todosPasteis = Object.values(categorias).flat();
 
-        // Preços
         function getPrecoPastel(id) {
             const numId = typeof id === 'string' ? parseInt(id, 10) : id;
             const baratos = [1, 12, 25];
@@ -1316,21 +1297,16 @@
             return 14.00;
         }
 
-        // Caldo de cana
         const opcoesCana = [
             { tamanho: '300ml', nome: '300 ml', preco: 6.00 },
-            { tamanho: '500ml', nome: '500 ml', preco: 8.00 },
+            { tamanho: '500ml', nome: '500 ml', preco: 10.00 },
             { tamanho: '1L', nome: '1 Litro', preco: 15.00 }
         ];
 
-        // Refrigerantes
+        // Refrigerantes: apenas Coca-Cola e Coca Zero
         const refrigerantes = [
             { id: 'refri-coca', nome: 'Coca-Cola', preco: 8.00 },
-            { id: 'refri-coca-zero', nome: 'Coca-Cola Zero', preco: 8.00 },
-            { id: 'refri-guarana', nome: 'Guaraná Antarctica', preco: 7.00 },
-            { id: 'refri-sprite', nome: 'Sprite', preco: 7.00 },
-            { id: 'refri-fanta', nome: 'Fanta Laranja', preco: 7.00 },
-            { id: 'refri-pepsi', nome: 'Pepsi', preco: 7.00 }
+            { id: 'refri-cocazero', nome: 'Coca Zero', preco: 8.00 }
         ];
 
         const DESCONTO_COMBO = 2.00;
@@ -1340,9 +1316,6 @@
         // ============================================================
         let carrinho = [];
 
-        // ============================================================
-        //  RENDERIZAÇÃO DAS SEÇÕES
-        // ============================================================
         function criarCardPastel(item) {
             const preco = getPrecoPastel(item.id);
             const card = document.createElement('div');
@@ -1672,7 +1645,8 @@
             }
 
             mensagem += '🛍️ *Retirada na loja* (não entregamos)\n';
-            mensagem += '📍 *Endereço:* R. Um - Chácaras Anhanguera, Valparaíso de Goiás - GO\n';
+            mensagem += '📍 *Endereço:* R. Um - Chácaras Anhanguera, Valparaíso de Goiás - GO, 74392-130\n';
+            mensagem += '⏰ *Horários:* Seg a Sex: 15h - 21h | Sáb: 15h - 19h\n';
             mensagem += '📞 *Contato:* (61) 99589-8075\n';
             mensagem += '📸 *Instagram:* @reido.pastel\n\n';
             mensagem += '✅ *Confirme seu pedido e aguarde a confirmação.*';
@@ -1700,7 +1674,7 @@
             if (e.key === 'Escape') fecharModal();
         });
 
-        console.log('🍥 Rei do Pastel - Cardápio completo com seções e refrigerantes!');
+        console.log('🍥 Rei do Pastel - Cardápio atualizado!');
     </script>
 </body>
 </html>
