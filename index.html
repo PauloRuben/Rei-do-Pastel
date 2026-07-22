@@ -6,7 +6,6 @@
     <title>Rei do Pastel - Cardápio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -36,7 +35,6 @@
             --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ===== HEADER COM LOGO ===== */
         header {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
@@ -75,45 +73,17 @@
             transform: scale(1.05) rotate(-2deg);
         }
 
-        /* Placeholder caso a imagem não carregue */
-        .logo-img::after {
-            content: "🍥";
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            width: 100%;
-            height: 100%;
-            background: var(--amarelo);
-            border-radius: 50%;
-        }
-
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo-text h1 {
-            font-size: 1.9rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--verde-escuro), #2a522a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.1;
-            letter-spacing: -0.5px;
-        }
-
-        .logo-text .sub {
-            font-size: 0.8rem;
+        .sub {
+            font-size: 0.85rem;
             font-weight: 600;
             color: #5f7a5a;
             background: #eef7ec;
-            padding: 0.1rem 1rem;
+            padding: 0.3rem 1.2rem;
             border-radius: 30px;
-            display: inline-block;
-            margin-top: 2px;
-            -webkit-text-fill-color: #5f7a5a;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            white-space: nowrap;
         }
 
         .header-aviso {
@@ -133,13 +103,29 @@
             font-size: 1rem;
         }
 
+        .header-social {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .header-social a {
+            color: var(--verde-escuro);
+            font-size: 1.3rem;
+            transition: color var(--transition), transform 0.15s;
+        }
+
+        .header-social a:hover {
+            color: #e1306c;
+            transform: scale(1.1);
+        }
+
         @media (max-width: 600px) {
             header {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            .logo-text h1 {
-                font-size: 1.5rem;
+            .logo-area {
+                align-items: center;
             }
             .header-aviso {
                 font-size: 0.75rem;
@@ -149,16 +135,21 @@
                 width: 50px;
                 height: 50px;
             }
+            .sub {
+                font-size: 0.8rem;
+                padding: 0.2rem 1rem;
+            }
+            .header-social {
+                align-self: flex-end;
+            }
         }
 
-        /* ===== CONTAINER ===== */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 1.5rem 1rem;
         }
 
-        /* ===== SEÇÃO ===== */
         .secao-titulo {
             font-size: 1.8rem;
             font-weight: 700;
@@ -175,7 +166,6 @@
             color: var(--amarelo-escuro);
         }
 
-        /* ===== GRID DE PASTÉIS ===== */
         .grid-pasteis {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -279,8 +269,9 @@
             transform: scale(0.96);
         }
 
-        /* ===== CALDO DE CANA ===== */
-        .card-cana {
+        /* Caldo de cana e Refrigerante */
+        .card-cana,
+        .card-refri {
             background: var(--branco);
             border-radius: var(--radius);
             padding: 1.8rem;
@@ -291,24 +282,28 @@
             transition: box-shadow var(--transition);
         }
 
-        .card-cana:hover {
+        .card-cana:hover,
+        .card-refri:hover {
             box-shadow: var(--sombra-hover);
         }
 
-        .card-cana h3 {
+        .card-cana h3,
+        .card-refri h3 {
             font-size: 1.4rem;
             color: var(--verde-escuro);
             margin-bottom: 1rem;
         }
 
-        .opcoes-cana {
+        .opcoes-cana,
+        .opcoes-refri {
             display: flex;
             flex-wrap: wrap;
             gap: 1rem;
             align-items: flex-end;
         }
 
-        .opcao-cana {
+        .opcao-cana,
+        .opcao-refri {
             background: #f8fbf7;
             border-radius: 14px;
             padding: 0.6rem 1.2rem;
@@ -320,24 +315,28 @@
             transition: border var(--transition), background var(--transition);
         }
 
-        .opcao-cana:hover {
+        .opcao-cana:hover,
+        .opcao-refri:hover {
             border-color: var(--amarelo);
             background: #fefce8;
         }
 
-        .opcao-cana .tamanho {
+        .opcao-cana .tamanho,
+        .opcao-refri .nome-refri {
             font-weight: 600;
             font-size: 0.9rem;
             color: #2d4a2a;
         }
 
-        .opcao-cana .preco-cana {
+        .opcao-cana .preco-cana,
+        .opcao-refri .preco-refri {
             font-weight: 700;
             font-size: 1.1rem;
             color: var(--verde-escuro);
         }
 
-        .btn-add-cana {
+        .btn-add-cana,
+        .btn-add-refri {
             background: var(--amarelo);
             border: none;
             border-radius: 40px;
@@ -350,13 +349,14 @@
             margin-top: 0.3rem;
         }
 
-        .btn-add-cana:hover {
+        .btn-add-cana:hover,
+        .btn-add-refri:hover {
             background: var(--amarelo-escuro);
             transform: scale(1.03);
             box-shadow: 0 4px 12px rgba(230, 194, 0, 0.25);
         }
 
-        /* ===== COMBOS ===== */
+        /* Combos */
         .card-combo {
             background: var(--branco);
             border-radius: var(--radius);
@@ -460,7 +460,7 @@
             transform: scale(0.96);
         }
 
-        /* ===== BANNER ENTREGA iFOOD ===== */
+        /* Banner iFood */
         .banner-ifood {
             background: linear-gradient(135deg, #fef9e7, #fdf3d0);
             border-radius: var(--radius);
@@ -525,7 +525,7 @@
             }
         }
 
-        /* ===== CARRINHO FLUTUANTE ===== */
+        /* Carrinho flutuante */
         .cart-fab {
             position: fixed;
             bottom: 24px;
@@ -569,7 +569,7 @@
             border: 2px solid var(--branco);
         }
 
-        /* ===== MODAL ===== */
+        /* Modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -677,11 +677,15 @@
             display: flex;
             flex-direction: column;
             gap: 2px;
+            flex: 1;
+            min-width: 0;
+            padding-right: 8px;
         }
 
         .item-carrinho .info .nome-item {
             font-weight: 600;
             color: #1e3b1e;
+            word-break: break-word;
         }
 
         .item-carrinho .info .detalhe-item {
@@ -692,13 +696,14 @@
         .item-carrinho .qtd-preco {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.6rem;
+            flex-shrink: 0;
         }
 
         .item-carrinho .qtd-preco .qtd {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .item-carrinho .qtd-preco .qtd button {
@@ -715,6 +720,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            line-height: 1;
         }
 
         .item-carrinho .qtd-preco .qtd button:hover {
@@ -741,13 +747,21 @@
             color: #b0b0b0;
             cursor: pointer;
             font-size: 1.1rem;
-            padding: 0 4px;
+            padding: 4px 6px;
             transition: color var(--transition), transform 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
         }
 
         .item-carrinho .remover-item:hover {
             color: #d32f2f;
-            transform: scale(1.2);
+            transform: scale(1.15);
+            background: #fff0f0;
         }
 
         .carrinho-vazio {
@@ -762,6 +776,40 @@
             margin-bottom: 0.8rem;
             display: block;
             color: #cde0c8;
+        }
+
+        .obs-area {
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        .obs-area label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #2d4a2a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .obs-area textarea {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border-radius: 12px;
+            border: 1px solid #d4e8ce;
+            background: #f8fbf7;
+            font-size: 0.95rem;
+            color: #1e3b1e;
+            resize: vertical;
+            min-height: 60px;
+            transition: border var(--transition), box-shadow var(--transition);
+            font-family: inherit;
+        }
+
+        .obs-area textarea:focus {
+            border-color: var(--amarelo);
+            box-shadow: 0 0 0 3px rgba(249, 215, 28, 0.2);
+            outline: none;
         }
 
         .modal-footer {
@@ -840,7 +888,7 @@
             margin-right: 6px;
         }
 
-        /* ===== FOOTER ===== */
+        /* Footer */
         .footer {
             background: var(--branco);
             border-top: 2px solid #e9f3e5;
@@ -891,6 +939,24 @@
         .footer-col i {
             width: 20px;
             color: var(--amarelo-escuro);
+        }
+
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-right: 0.8rem;
+            font-weight: 500;
+        }
+
+        .footer-social a i {
+            font-size: 1.3rem;
+            color: #e1306c;
+            width: auto;
+        }
+
+        .footer-social a:hover {
+            color: #c41724;
         }
 
         .footer-bottom {
@@ -953,10 +1019,6 @@
             .footer-msg-ifood {
                 font-size: 0.8rem;
             }
-        }
-
-        /* ===== RESPONSIVO ===== */
-        @media (max-width: 600px) {
             .grid-pasteis {
                 grid-template-columns: 1fr 1fr;
                 gap: 0.8rem;
@@ -988,6 +1050,14 @@
             .banner-ifood {
                 padding: 1rem;
             }
+            .item-carrinho .qtd-preco {
+                gap: 0.3rem;
+            }
+            .item-carrinho .remover-item {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+            }
         }
 
         @media (max-width: 420px) {
@@ -999,58 +1069,68 @@
 </head>
 <body>
 
-    <!-- ===== HEADER COM LOGO ===== -->
     <header>
         <div class="logo-area">
-            <!-- Substitua o src pela sua imagem. Mantenha a classe logo-img -->
-            <img src="/logo.jpeg" width='100' height='100' alt="Logo Rei do Pastel" class="logo-img" id="logoImg" />
-            <div class="logo-text">
-                <h1>Rei do Pastel</h1>
-                <span class="sub"><i class="fas fa-store"></i> Retirada na loja</span>
-            </div>
+            <img src="/logo.jpeg" width="100" height="100" alt="Logo Rei do Pastel" class="logo-img" id="logoImg"
+            onerror="this.style.display='none';" />
+            <span class="sub"><i class="fas fa-store"></i> Retirada na loja</span>
         </div>
-        <div class="header-aviso">
-            <i class="fas fa-exclamation-circle"></i> Apenas retirada · sem delivery
+        <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+            <div class="header-aviso">
+                <i class="fas fa-exclamation-circle"></i> Apenas retirada · sem delivery
+            </div>
+            <div class="header-social">
+                <a href="https://www.instagram.com/reido.pastel/" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
         </div>
     </header>
 
-    <!-- ===== CONTEÚDO ===== -->
     <div class="container">
+        <!-- CARNES -->
+        <h2 class="secao-titulo"><i class="fas fa-drumstick-bite"></i> Carnes</h2>
+        <div class="grid-pasteis" id="secaoCarnes"></div>
 
-        <!-- PASTÉIS -->
-        <h2 class="secao-titulo"><i class="fas fa-pizza-slice"></i> Pastéis</h2>
-        <div class="grid-pasteis" id="listaPasteis"></div>
+        <!-- FRANGOS -->
+        <h2 class="secao-titulo"><i class="fas fa-drumstick-bite"></i> Frangos</h2>
+        <div class="grid-pasteis" id="secaoFrangos"></div>
+
+        <!-- CALABRESA -->
+        <h2 class="secao-titulo"><i class="fas fa-sausage"></i> Calabresa</h2>
+        <div class="grid-pasteis" id="secaoCalabresa"></div>
+
+        <!-- PRESUNTO -->
+        <h2 class="secao-titulo"><i class="fas fa-bacon"></i> Presunto</h2>
+        <div class="grid-pasteis" id="secaoPresunto"></div>
+
+        <!-- QUEIJO -->
+        <h2 class="secao-titulo"><i class="fas fa-cheese"></i> Queijo</h2>
+        <div class="grid-pasteis" id="secaoQueijo"></div>
+
+        <!-- CAMARÃO -->
+        <h2 class="secao-titulo"><i class="fas fa-shrimp"></i> Camarão</h2>
+        <div class="grid-pasteis" id="secaoCamarao"></div>
+
+        <!-- DOCES -->
+        <h2 class="secao-titulo"><i class="fas fa-candy-cane"></i> Doces</h2>
+        <div class="grid-pasteis" id="secaoDoces"></div>
 
         <!-- CALDO DE CANA -->
         <h2 class="secao-titulo" style="margin-top:2.5rem;"><i class="fas fa-glass-whiskey"></i> Caldo de Cana</h2>
         <div class="card-cana">
             <h3>Escolha o tamanho</h3>
-            <div class="opcoes-cana">
-                <div class="opcao-cana">
-                    <span class="tamanho">300 ml</span>
-                    <span class="preco-cana">R$ 6,00</span>
-                    <button class="btn-add-cana" data-tamanho="300ml" data-preco="6.00">
-                        <i class="fas fa-plus"></i> Adicionar
-                    </button>
-                </div>
-                <div class="opcao-cana">
-                    <span class="tamanho">500 ml</span>
-                    <span class="preco-cana">R$ 10,00</span>
-                    <button class="btn-add-cana" data-tamanho="500ml" data-preco="10.00">
-                        <i class="fas fa-plus"></i> Adicionar
-                    </button>
-                </div>
-                <div class="opcao-cana">
-                    <span class="tamanho">1 Litro</span>
-                    <span class="preco-cana">R$ 15,00</span>
-                    <button class="btn-add-cana" data-tamanho="1L" data-preco="15.00">
-                        <i class="fas fa-plus"></i> Adicionar
-                    </button>
-                </div>
-            </div>
+            <div class="opcoes-cana" id="opcoesCanaContainer"></div>
         </div>
 
-        <!-- ===== COMBOS ===== -->
+        <!-- REFRIGERANTES -->
+        <h2 class="secao-titulo" style="margin-top:2.5rem;"><i class="fas fa-glass-martini-alt"></i> Refrigerantes</h2>
+        <div class="card-refri">
+            <h3>Escolha o sabor</h3>
+            <div class="opcoes-refri" id="opcoesRefriContainer"></div>
+        </div>
+
+        <!-- COMBOS -->
         <h2 class="secao-titulo" style="margin-top:2.5rem;"><i class="fas fa-gem"></i> Combos</h2>
         <div class="card-combo">
             <h3><i class="fas fa-utensils" style="color:var(--amarelo-escuro);"></i> Monte seu combo</h3>
@@ -1080,7 +1160,7 @@
             </button>
         </div>
 
-        <!-- ===== BANNER iFOOD ===== -->
+        <!-- BANNER iFOOD -->
         <div class="banner-ifood">
             <div class="msg">
                 <i class="fas fa-truck"></i>
@@ -1093,10 +1173,8 @@
                 <i class="fas fa-shopping-bag"></i> Pedir no iFood
             </a>
         </div>
-
     </div>
 
-    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-col">
@@ -1107,6 +1185,11 @@
             <div class="footer-col">
                 <h4><i class="fas fa-phone"></i> Contato</h4>
                 <p><i class="fas fa-whatsapp"></i> (61) 99589-8075</p>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/reido.pastel/" target="_blank">
+                        <i class="fab fa-instagram"></i> @reido.pastel
+                    </a>
+                </div>
             </div>
             <div class="footer-col">
                 <h4><i class="fas fa-utensils"></i> Peça também</h4>
@@ -1117,7 +1200,7 @@
                     <i class="fas fa-truck"></i> Entregamos <strong>apenas</strong> pelo iFood
                 </div>
                 <p style="margin-top:0.6rem; font-size:0.85rem; color:#7a9a74;">
-                    <i class="fas fa-clock"></i> Aberto de terça a domingo
+                    <i class="fas fa-clock"></i> Aberto de segunda a sábado
                 </p>
             </div>
         </div>
@@ -1126,13 +1209,11 @@
         </div>
     </footer>
 
-    <!-- ===== BOTÃO CARRINHO FLUTUANTE ===== -->
     <button class="cart-fab" id="abrirCarrinhoBtn" aria-label="Abrir carrinho">
         <i class="fas fa-shopping-bag"></i>
-        <span class="badge" id="cartBadge">0</span>
+        <span class="badge" id="cartBadge" style="display:none;">0</span>
     </button>
 
-    <!-- ===== MODAL CARRINHO ===== -->
     <div class="modal-overlay" id="modalCarrinho">
         <div class="modal-cart">
             <div class="modal-header">
@@ -1144,6 +1225,10 @@
                     <i class="fas fa-shopping-bag"></i>
                     Seu carrinho está vazio
                 </div>
+            </div>
+            <div class="obs-area">
+                <label for="obsPedido"><i class="fas fa-pencil-alt"></i> Observações</label>
+                <textarea id="obsPedido" placeholder="Ex: tirar cebola, bem passado, sem lactose, etc."></textarea>
             </div>
             <div class="modal-footer">
                 <div class="total">
@@ -1163,122 +1248,216 @@
 
     <script>
         // ============================================================
-        //  DADOS
+        //  DADOS DOS PASTÉIS POR CATEGORIA
         // ============================================================
+        const categorias = {
+            carnes: [
+                { id: 1, nome: 'Carne' },
+                { id: 2, nome: 'Carne com Queijo' },
+                { id: 3, nome: 'Carne / Milho / Calabresa / Queijo' },
+                { id: 4, nome: 'Carne / Azeitona / Tomate / Queijo' },
+                { id: 5, nome: 'Carne / Palmito / Azeitona / Queijo' },
+                { id: 6, nome: 'Carne / Cream Cheese / Queijo' },
+                { id: 7, nome: 'Carne / Cheddar / Queijo' },
+                { id: 8, nome: 'Carne / Catupiry / Queijo' },
+                { id: 9, nome: 'Carne Seca / Queijo' },
+                { id: 10, nome: 'Carne Seca / Cream Cheese / Queijo' },
+                { id: 11, nome: 'Costela com Queijo' }
+            ],
+            frangos: [
+                { id: 12, nome: 'Frango' },
+                { id: 13, nome: 'Frango com Queijo' },
+                { id: 14, nome: 'Frango Catupiry e Queijo' },
+                { id: 15, nome: 'Frango Cheddar e Queijo' },
+                { id: 16, nome: 'Frango Cream Cheese e Queijo' },
+                { id: 17, nome: 'Frango Requeijão e Queijo' }
+            ],
+            calabresa: [
+                { id: 18, nome: 'Calabresa com Queijo' },
+                { id: 19, nome: 'Calabresa Catupiry e Queijo' },
+                { id: 20, nome: 'Calabresa Cheddar e Queijo' }
+            ],
+            presunto: [
+                { id: 21, nome: 'Presunto e Queijo' },
+                { id: 22, nome: 'Pizza - Presunto / Tomate / Queijo' }
+            ],
+            queijo: [
+                { id: 25, nome: 'Queijo' }
+            ],
+            camarao: [
+                { id: 23, nome: 'Camarão Cream Cheese e Queijo' },
+                { id: 24, nome: 'Camarão / Queijo e Requeijão' }
+            ],
+            doces: [
+                { id: 26, nome: 'Banana / Queijo e Canela' },
+                { id: 27, nome: 'Banana / Chocolate e Queijo' },
+                { id: 28, nome: 'Banana Nutella e Queijo' },
+                { id: 29, nome: 'Nutella com Queijo' },
+                { id: 30, nome: 'Nutella com Morango' }
+            ]
+        };
 
-        const pasteis = [
-            { id: 1, nome: 'Carne' },
-            { id: 2, nome: 'Carne com Queijo' },
-            { id: 3, nome: 'Carne / Milho / Calabresa / Queijo' },
-            { id: 4, nome: 'Carne / Azeitona / Tomate / Queijo' },
-            { id: 5, nome: 'Carne / Palmito / Azeitona / Queijo' },
-            { id: 6, nome: 'Carne / Cream Cheese / Queijo' },
-            { id: 7, nome: 'Carne / Cheddar / Queijo' },
-            { id: 8, nome: 'Carne / Catupiry / Queijo' },
-            { id: 9, nome: 'Carne Seca / Queijo' },
-            { id: 10, nome: 'Carne Seca / Cream Cheese / Queijo' },
-            { id: 11, nome: 'Costela com Queijo' },
-            { id: 12, nome: 'Frango' },
-            { id: 13, nome: 'Frango com Queijo' },
-            { id: 14, nome: 'Frango Catupiry e Queijo' },
-            { id: 15, nome: 'Frango Cheddar e Queijo' },
-            { id: 16, nome: 'Frango Cream Cheese e Queijo' },
-            { id: 17, nome: 'Frango Requeijão e Queijo' },
-            { id: 18, nome: 'Calabresa com Queijo' },
-            { id: 19, nome: 'Calabresa Catupiry e Queijo' },
-            { id: 20, nome: 'Calabresa Cheddar e Queijo' },
-            { id: 21, nome: 'Presunto e Queijo' },
-            { id: 22, nome: 'Pizza - Presunto / Tomate / Queijo' },
-            { id: 23, nome: 'Camarão Cream Cheese e Queijo' },
-            { id: 24, nome: 'Camarão / Queijo e Requeijão' },
-            { id: 25, nome: 'Queijo' },
-            { id: 26, nome: 'Banana / Queijo e Canela' },
-            { id: 27, nome: 'Banana / Chocolate e Queijo' },
-            { id: 28, nome: 'Banana Nutella e Queijo' },
-            { id: 29, nome: 'Nutella com Queijo' },
-            { id: 30, nome: 'Nutella com Morango' }
-        ];
+        // Lista plana de todos os pastéis para o combo
+        const todosPasteis = Object.values(categorias).flat();
 
+        // Preços
         function getPrecoPastel(id) {
+            const numId = typeof id === 'string' ? parseInt(id, 10) : id;
             const baratos = [1, 12, 25];
             const intermediarios = [2, 13, 18, 21, 26];
             const carne = [3, 4, 5];
             const caros = [6, 10, 16, 27, 28, 30];
             const especiais = [9, 10, 14, 23, 24];
-            if (baratos.includes(id)) return 10.00;
-            else if (intermediarios.includes(id)) return 12.00;
-            else if (carne.includes(id)) return 15.00;
-            else if (caros.includes(id)) return 16.00;
-            else if (especiais.includes(id)) return 26.00;
+            if (baratos.includes(numId)) return 10.00;
+            if (intermediarios.includes(numId)) return 12.00;
+            if (carne.includes(numId)) return 15.00;
+            if (caros.includes(numId)) return 16.00;
+            if (especiais.includes(numId)) return 26.00;
             return 14.00;
         }
 
-        const precosCana = { '300ml': 6.00, '500ml': 8.00, '1L': 15.00 };
+        // Caldo de cana
+        const opcoesCana = [
+            { tamanho: '300ml', nome: '300 ml', preco: 6.00 },
+            { tamanho: '500ml', nome: '500 ml', preco: 10.00 },
+            { tamanho: '1L', nome: '1 Litro', preco: 15.00 }
+        ];
+
+        // Refrigerantes
+        const refrigerantes = [
+            { id: 'refri-coca', nome: 'Coca-Cola', preco: 8.00 },
+            { id: 'refri-guarana', nome: 'Guaraná Antarctica', preco: 7.00 },
+            { id: 'refri-sprite', nome: 'Sprite', preco: 7.00 },
+            { id: 'refri-fanta', nome: 'Fanta Laranja', preco: 7.00 },
+            { id: 'refri-pepsi', nome: 'Pepsi', preco: 7.00 }
+        ];
+
         const DESCONTO_COMBO = 2.00;
 
         // ============================================================
         //  CARRINHO
         // ============================================================
-
         let carrinho = [];
 
         // ============================================================
-        //  DOM REFS
+        //  RENDERIZAÇÃO DAS SEÇÕES
         // ============================================================
+        function criarCardPastel(item) {
+            const preco = getPrecoPastel(item.id);
+            const card = document.createElement('div');
+            card.className = 'card-pastel';
+            card.innerHTML = `
+                <span class="numero">#${item.id}</span>
+                <div class="nome">${item.nome}</div>
+                <div class="preco">R$ ${preco.toFixed(2)} <small>cada</small></div>
+                <button class="btn-add" data-id="${item.id}" data-nome="${item.nome}" data-preco="${preco}">
+                    <i class="fas fa-plus-circle"></i> Adicionar
+                </button>
+            `;
+            return card;
+        }
 
-        const listaPasteisEl = document.getElementById('listaPasteis');
-        const listaCarrinhoEl = document.getElementById('listaCarrinho');
-        const totalCarrinhoEl = document.getElementById('totalCarrinho');
-        const cartBadge = document.getElementById('cartBadge');
-        const modalCarrinho = document.getElementById('modalCarrinho');
-        const abrirCarrinhoBtn = document.getElementById('abrirCarrinhoBtn');
-        const fecharCarrinhoBtn = document.getElementById('fecharCarrinhoBtn');
-        const limparCarrinhoBtn = document.getElementById('limparCarrinhoBtn');
-        const finalizarPedidoBtn = document.getElementById('finalizarPedidoBtn');
+        function renderizarSecao(idContainer, itens) {
+            const container = document.getElementById(idContainer);
+            if (!container) return;
+            container.innerHTML = '';
+            itens.forEach(item => {
+                const card = criarCardPastel(item);
+                container.appendChild(card);
+            });
+        }
 
+        function renderizarTodasSecoes() {
+            renderizarSecao('secaoCarnes', categorias.carnes);
+            renderizarSecao('secaoFrangos', categorias.frangos);
+            renderizarSecao('secaoCalabresa', categorias.calabresa);
+            renderizarSecao('secaoPresunto', categorias.presunto);
+            renderizarSecao('secaoQueijo', categorias.queijo);
+            renderizarSecao('secaoCamarao', categorias.camarao);
+            renderizarSecao('secaoDoces', categorias.doces);
+            adicionarEventosBotoesAdd();
+        }
+
+        function renderizarOpcoesCana() {
+            const container = document.getElementById('opcoesCanaContainer');
+            container.innerHTML = '';
+            opcoesCana.forEach(op => {
+                const div = document.createElement('div');
+                div.className = 'opcao-cana';
+                div.innerHTML = `
+                    <span class="tamanho">${op.nome}</span>
+                    <span class="preco-cana">R$ ${op.preco.toFixed(2)}</span>
+                    <button class="btn-add-cana" data-tamanho="${op.tamanho}" data-preco="${op.preco.toFixed(2)}">
+                        <i class="fas fa-plus"></i> Adicionar
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+            document.querySelectorAll('.btn-add-cana').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const tamanho = this.dataset.tamanho;
+                    const preco = parseFloat(this.dataset.preco);
+                    const nome = `Caldo de Cana ${tamanho}`;
+                    adicionarItem({ id: `cana-${tamanho}`, nome, preco, tipo: 'cana' });
+                    animarBotao(this);
+                });
+            });
+        }
+
+        function renderizarRefrigerantes() {
+            const container = document.getElementById('opcoesRefriContainer');
+            container.innerHTML = '';
+            refrigerantes.forEach(ref => {
+                const div = document.createElement('div');
+                div.className = 'opcao-refri';
+                div.innerHTML = `
+                    <span class="nome-refri">${ref.nome}</span>
+                    <span class="preco-refri">R$ ${ref.preco.toFixed(2)}</span>
+                    <button class="btn-add-refri" data-id="${ref.id}" data-nome="${ref.nome}" data-preco="${ref.preco.toFixed(2)}">
+                        <i class="fas fa-plus"></i> Adicionar
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+            document.querySelectorAll('.btn-add-refri').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const id = this.dataset.id;
+                    const nome = this.dataset.nome;
+                    const preco = parseFloat(this.dataset.preco);
+                    adicionarItem({ id, nome, preco, tipo: 'refrigerante' });
+                    animarBotao(this);
+                });
+            });
+        }
+
+        function adicionarEventosBotoesAdd() {
+            document.querySelectorAll('.card-pastel .btn-add').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const id = this.dataset.id;
+                    const nome = this.dataset.nome;
+                    const preco = parseFloat(this.dataset.preco);
+                    adicionarItem({ id, nome, preco, tipo: 'pastel' });
+                    animarBotao(this);
+                });
+            });
+        }
+
+        function animarBotao(botao) {
+            botao.style.transform = 'scale(0.92)';
+            setTimeout(() => { botao.style.transform = ''; }, 150);
+        }
+
+        // ============================================================
+        //  COMBO
+        // ============================================================
         const comboPastelSelect = document.getElementById('comboPastel');
         const comboCanaSelect = document.getElementById('comboCana');
         const comboPrecoDisplay = document.getElementById('comboPrecoDisplay');
         const btnAddCombo = document.getElementById('btnAddCombo');
 
-        // ============================================================
-        //  RENDER PASTÉIS
-        // ============================================================
-
-        function renderizarPasteis() {
-            listaPasteisEl.innerHTML = '';
-            pasteis.forEach(p => {
-                const preco = getPrecoPastel(p.id);
-                const card = document.createElement('div');
-                card.className = 'card-pastel';
-                card.innerHTML = `
-                    <span class="numero">#${p.id}</span>
-                    <div class="nome">${p.nome}</div>
-                    <div class="preco">R$ ${preco.toFixed(2)} <small>cada</small></div>
-                    <button class="btn-add" data-id="${p.id}" data-nome="${p.nome}" data-preco="${preco}">
-                        <i class="fas fa-plus-circle"></i> Adicionar
-                    </button>
-                `;
-                listaPasteisEl.appendChild(card);
-            });
-
-            document.querySelectorAll('.card-pastel .btn-add').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.dataset.id);
-                    const nome = this.dataset.nome;
-                    const preco = parseFloat(this.dataset.preco);
-                    adicionarItem({ id, nome, preco, tipo: 'pastel' });
-                });
-            });
-        }
-
-        // ============================================================
-        //  POPULAR SELECT DE COMBOS
-        // ============================================================
-
         function popularComboSelect() {
             comboPastelSelect.innerHTML = '';
-            pasteis.forEach(p => {
+            todosPasteis.forEach(p => {
                 const preco = getPrecoPastel(p.id);
                 const option = document.createElement('option');
                 option.value = p.id;
@@ -1290,69 +1469,49 @@
         }
 
         function atualizarPrecoCombo() {
-            const pastelId = parseInt(comboPastelSelect.value);
-            const precoPastel = getPrecoPastel(pastelId);
+            const pastelIdNum = parseInt(comboPastelSelect.value, 10);
+            const precoPastel = getPrecoPastel(pastelIdNum);
             const canaSize = comboCanaSelect.value;
-            const precoCana = precosCana[canaSize] || 0;
+            const precoCana = opcoesCana.find(op => op.tamanho === canaSize)?.preco || 0;
             const total = precoPastel + precoCana - DESCONTO_COMBO;
             comboPrecoDisplay.textContent = `R$ ${total.toFixed(2)}`;
             return total;
         }
 
-        // ============================================================
-        //  CALDO DE CANA - EVENTOS
-        // ============================================================
-
-        document.querySelectorAll('.btn-add-cana').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const tamanho = this.dataset.tamanho;
-                const preco = parseFloat(this.dataset.preco);
-                const nome = `Caldo de Cana ${tamanho}`;
-                const id = `cana-${tamanho}`;
-                adicionarItem({ id, nome, preco, tipo: 'cana' });
-            });
-        });
-
-        // ============================================================
-        //  ADICIONAR COMBO
-        // ============================================================
-
-        btnAddCombo.addEventListener('click', function() {
-            const pastelId = parseInt(comboPastelSelect.value);
-            const pastelNome = pasteis.find(p => p.id === pastelId)?.nome || 'Pastel';
-            const precoPastel = getPrecoPastel(pastelId);
+        btnAddCombo.addEventListener('click', function () {
+            const pastelIdStr = comboPastelSelect.value;
+            const pastelIdNum = parseInt(pastelIdStr, 10);
+            const pastelNome = todosPasteis.find(p => p.id === pastelIdNum)?.nome || 'Pastel';
+            const precoPastel = getPrecoPastel(pastelIdNum);
             const canaSize = comboCanaSelect.value;
-            const precoCana = precosCana[canaSize] || 0;
+            const precoCana = opcoesCana.find(op => op.tamanho === canaSize)?.preco || 0;
             const total = precoPastel + precoCana - DESCONTO_COMBO;
             const nomeCombo = `Combo: ${pastelNome} + Cana ${canaSize}`;
-            const idCombo = `combo-${pastelId}-${canaSize}`;
+            const idCombo = `combo-${pastelIdStr}-${canaSize}`;
             adicionarItem({ id: idCombo, nome: nomeCombo, preco: total, tipo: 'combo' });
+            animarBotao(this);
         });
 
         comboPastelSelect.addEventListener('change', atualizarPrecoCombo);
         comboCanaSelect.addEventListener('change', atualizarPrecoCombo);
 
         // ============================================================
-        //  FUNÇÕES DO CARRINHO
+        //  CARRINHO (funções)
         // ============================================================
-
         function adicionarItem(item) {
-            const existente = carrinho.find(i => i.id === item.id && i.tipo === item.tipo);
+            const idStr = String(item.id);
+            const existente = carrinho.find(i => i.id === idStr && i.tipo === item.tipo);
             if (existente) {
                 existente.quantidade += 1;
             } else {
-                carrinho.push({ ...item, quantidade: 1 });
+                carrinho.push({ ...item, id: idStr, quantidade: 1 });
             }
             atualizarInterface();
-            const btn = document.querySelector(`[data-id="${item.id}"]`) || event?.target?.closest?.('button');
-            if (btn) {
-                btn.style.transform = 'scale(0.92)';
-                setTimeout(() => btn.style.transform = '', 150);
-            }
         }
 
         function removerItem(id, tipo) {
-            const index = carrinho.findIndex(i => i.id === id && i.tipo === tipo);
+            const idStr = String(id);
+            const index = carrinho.findIndex(i => i.id === idStr && i.tipo === tipo);
             if (index !== -1) {
                 if (carrinho[index].quantidade > 1) {
                     carrinho[index].quantidade -= 1;
@@ -1364,7 +1523,8 @@
         }
 
         function excluirItemCompleto(id, tipo) {
-            const index = carrinho.findIndex(i => i.id === id && i.tipo === tipo);
+            const idStr = String(id);
+            const index = carrinho.findIndex(i => i.id === idStr && i.tipo === tipo);
             if (index !== -1) {
                 carrinho.splice(index, 1);
                 atualizarInterface();
@@ -1385,8 +1545,17 @@
         }
 
         // ============================================================
-        //  ATUALIZAR INTERFACE
+        //  INTERFACE DO CARRINHO
         // ============================================================
+        const listaCarrinhoEl = document.getElementById('listaCarrinho');
+        const totalCarrinhoEl = document.getElementById('totalCarrinho');
+        const cartBadge = document.getElementById('cartBadge');
+        const modalCarrinho = document.getElementById('modalCarrinho');
+        const abrirCarrinhoBtn = document.getElementById('abrirCarrinhoBtn');
+        const fecharCarrinhoBtn = document.getElementById('fecharCarrinhoBtn');
+        const limparCarrinhoBtn = document.getElementById('limparCarrinhoBtn');
+        const finalizarPedidoBtn = document.getElementById('finalizarPedidoBtn');
+        const obsPedido = document.getElementById('obsPedido');
 
         function atualizarInterface() {
             const qtd = getQuantidadeTotal();
@@ -1415,12 +1584,12 @@
                         </div>
                         <div class="qtd-preco">
                             <div class="qtd">
-                                <button class="btn-qtd-menos" data-id="${item.id}" data-tipo="${item.tipo}">−</button>
+                                <button class="btn-qtd-menos" data-id="${item.id}" data-tipo="${item.tipo}" aria-label="Diminuir quantidade">−</button>
                                 <span>${item.quantidade}</span>
-                                <button class="btn-qtd-mais" data-id="${item.id}" data-tipo="${item.tipo}">+</button>
+                                <button class="btn-qtd-mais" data-id="${item.id}" data-tipo="${item.tipo}" aria-label="Aumentar quantidade">+</button>
                             </div>
                             <span class="preco-item">R$ ${precoTotal}</span>
-                            <button class="remover-item" data-id="${item.id}" data-tipo="${item.tipo}" title="Remover item">
+                            <button class="remover-item" data-id="${item.id}" data-tipo="${item.tipo}" title="Remover item" aria-label="Remover item">
                                 <i class="fas fa-times"></i>
                             </button>
                         </div>
@@ -1428,39 +1597,36 @@
                 `;
             });
             listaCarrinhoEl.innerHTML = html;
-
-            listaCarrinhoEl.querySelectorAll('.btn-qtd-mais').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = this.dataset.id;
-                    const tipo = this.dataset.tipo;
-                    const item = carrinho.find(i => i.id === id && i.tipo === tipo);
-                    if (item) {
-                        item.quantidade += 1;
-                        atualizarInterface();
-                    }
-                });
-            });
-            listaCarrinhoEl.querySelectorAll('.btn-qtd-menos').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = this.dataset.id;
-                    const tipo = this.dataset.tipo;
-                    removerItem(id, tipo);
-                });
-            });
-            listaCarrinhoEl.querySelectorAll('.remover-item').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = this.dataset.id;
-                    const tipo = this.dataset.tipo;
-                    excluirItemCompleto(id, tipo);
-                });
-            });
-
             totalCarrinhoEl.textContent = `R$ ${getTotal().toFixed(2)}`;
         }
 
-        // ============================================================
-        //  MODAL
-        // ============================================================
+        listaCarrinhoEl.addEventListener('click', function (e) {
+            const target = e.target.closest('button');
+            if (!target) return;
+
+            const id = target.dataset.id;
+            const tipo = target.dataset.tipo;
+
+            if (target.classList.contains('btn-qtd-mais')) {
+                const idStr = String(id);
+                const item = carrinho.find(i => i.id === idStr && i.tipo === tipo);
+                if (item) {
+                    item.quantidade += 1;
+                    atualizarInterface();
+                }
+                return;
+            }
+
+            if (target.classList.contains('btn-qtd-menos')) {
+                removerItem(id, tipo);
+                return;
+            }
+
+            if (target.classList.contains('remover-item')) {
+                excluirItemCompleto(id, tipo);
+                return;
+            }
+        });
 
         function abrirModal() {
             modalCarrinho.classList.add('aberto');
@@ -1475,22 +1641,18 @@
 
         abrirCarrinhoBtn.addEventListener('click', abrirModal);
         fecharCarrinhoBtn.addEventListener('click', fecharModal);
-        modalCarrinho.addEventListener('click', function(e) {
+        modalCarrinho.addEventListener('click', function (e) {
             if (e.target === this) fecharModal();
         });
 
-        limparCarrinhoBtn.addEventListener('click', function() {
+        limparCarrinhoBtn.addEventListener('click', function () {
             if (carrinho.length === 0) return;
             if (confirm('Tem certeza que deseja esvaziar o carrinho?')) {
                 limparCarrinho();
             }
         });
 
-        // ============================================================
-        //  FINALIZAR PEDIDO → WHATSAPP
-        // ============================================================
-
-        finalizarPedidoBtn.addEventListener('click', function() {
+        finalizarPedidoBtn.addEventListener('click', function () {
             if (carrinho.length === 0) {
                 alert('Seu carrinho está vazio! Adicione alguns itens antes de finalizar.');
                 return;
@@ -1502,9 +1664,16 @@
                 mensagem += `  • ${item.quantidade}x ${item.nome}  (R$ ${(item.preco * item.quantidade).toFixed(2)})\n`;
             });
             mensagem += `\n💰 *Total: R$ ${getTotal().toFixed(2)}*\n\n`;
+
+            const obs = obsPedido.value.trim();
+            if (obs) {
+                mensagem += `📝 *Observações:* ${obs}\n\n`;
+            }
+
             mensagem += '🛍️ *Retirada na loja* (não entregamos)\n';
-            mensagem += '📍 *Endereço:* Rua dos Pastéis, 1000 – Centro, São Paulo – SP\n';
-            mensagem += '📞 *Contato:* (61) 99589-8075\n\n';
+            mensagem += '📍 *Endereço:* R. Um - Chácaras Anhanguera, Valparaíso de Goiás - GO\n';
+            mensagem += '📞 *Contato:* (61) 99589-8075\n';
+            mensagem += '📸 *Instagram:* @reido.pastel\n\n';
             mensagem += '✅ *Confirme seu pedido e aguarde a confirmação.*';
 
             const numero = '5561995898075';
@@ -1520,22 +1689,17 @@
         // ============================================================
         //  INICIALIZAÇÃO
         // ============================================================
-
-        renderizarPasteis();
+        renderizarTodasSecoes();
+        renderizarOpcoesCana();
+        renderizarRefrigerantes();
         popularComboSelect();
         atualizarInterface();
 
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') fecharModal();
         });
 
-        // ============================================================
-        //  LOGO - TROCA DE IMAGEM (exemplo)
-        // ============================================================
-        // Para usar sua própria imagem, descomente a linha abaixo e substitua o caminho.
-        // document.getElementById('logoImg').src = 'sua-logo.png';
-
-        console.log('🍥 Rei do Pastel - Cardápio estilizado com logo e entrega iFood!');
+        console.log('🍥 Rei do Pastel - Cardápio completo com seções e refrigerantes!');
     </script>
 </body>
 </html>
