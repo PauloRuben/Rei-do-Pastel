@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rei do Pastel - Cardápio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background: #f0f7ed;
+            background-image: radial-gradient(circle at 20% 30%, rgba(184, 224, 176, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(249, 215, 28, 0.15) 0%, transparent 40%);
+            min-height: 100vh;
+            color: #1e2b1c;
+            padding-bottom: 80px;
+        }
+
+        :root {
+            --branco: #ffffff;
+            --amarelo: #f9d71c;
+            --amarelo-escuro: #e6c200;
+            --verde-claro: #b8e0b0;
+            --verde-claro-hover: #a0d096;
+            --verde-escuro: #3a6b3a;
+            --sombra: 0 8px 24px rgba(0, 0, 0, 0.06);
+            --sombra-hover: 0 12px 36px rgba(0, 0, 0, 0.12);
+            --radius: 20px;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== HEADER COM LOGO ===== */
+        header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 0.8rem 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid rgba(249, 215, 28, 0.3);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--amarelo);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            background: var(--branco);
+            transition: transform var(--transition);
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        /* Placeholder caso a imagem não carregue */
+        .logo-img::after {
+            content: "🍥";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            width: 100%;
+            height: 100%;
+            background: var(--amarelo);
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--verde-escuro), #2a522a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text .sub {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #5f7a5a;
+            background: #eef7ec;
+            padding: 0.1rem 1rem;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 2px;
+            -webkit-text-fill-color: #5f7a5a;
+        }
+
+        .header-aviso {
+            font-size: 0.85rem;
+            background: var(--verde-claro);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            color: var(--verde-escuro);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .header-aviso i {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            .header-aviso {
+                font-size: 0.75rem;
+                padding: 0.2rem 1rem;
+            }
+            .logo-img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        /* ===== SEÇÃO ===== */
+        .secao-titulo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--verde-escuro);
+            border-left: 6px solid var(--amarelo);
+            padding-left: 1rem;
+            margin: 2.5rem 0 1.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .secao-titulo i {
+            color: var(--amarelo-escuro);
+        }
+
+        /* ===== GRID DE PASTÉIS ===== */
+        .grid-pasteis {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card-pastel {
+            background: var(--branco);
+            border-radius: var(--radius);
+            padding: 1.2rem 1rem 1.2rem;
+            box-shadow: var(--sombra);
+            border: 1px solid #eef7ec;
+            display: flex;
+            flex-direction: column;
+            transition: transform var(--transition), box-shadow var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-pastel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--amarelo), var(--verde-claro));
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+
+        .card-pastel:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--sombra-hover);
+            border-color: #d4e8ce;
+        }
+
+        .card-pastel:hover::before {
+            opacity: 1;
+        }
+
+        .card-pastel .numero {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #9ab894;
+            background: #eef7ec;
+            display: inline-block;
+            padding: 0.1rem 0.7rem;
+            border-radius: 30px;
+            align-self: flex-start;
+            margin-bottom: 0.4rem;
+        }
+
+        .card-pastel .nome {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #1e3b1e;
+            flex: 1;
+            margin: 0.2rem 0 0.5rem 0;
+            line-height: 1.3;
+        }
+
+        .card-pastel .preco {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--verde-escuro);
+            margin-bottom: 0.8rem;
+        }
+
+        .card-pastel .preco small {
+            font-weight: 400;
+            font-size: 0.8rem;
+            color: #5f7a5a;
+        }
+
+        .btn-add {
+            background: var(--verde-claro);
+            border: none;
+            border-radius: 40px;
+            padding: 0.6rem 0;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #1e3b1e;
+            cursor: pointer;
+            transition: background var(--transition), transform 0.15s, box-shadow var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            border: 1px solid #b5d8ac;
+        }
+
+        .btn-add:hover {
+            background: var(--verde-claro-hover);
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(160, 208, 150, 0.3);
+        }
+
+        .btn-add:active {
+            transform: scale(0.96);
+        }
+
+        /* ===== CALDO DE CANA ===== */
+        .card-cana {
+            background: var(--branco);
+            border-radius: var(--radius);
+            padding: 1.8rem;
+            box-shadow: var(--sombra);
+            border: 1px solid #eef7ec;
+            max-width: 500px;
+            margin-top: 0.5rem;
+            transition: box-shadow var(--transition);
+        }
+
+        .card-cana:hover {
+            box-shadow: var(--sombra-hover);
+        }
+
+        .card-cana h3 {
+            font-size: 1.4rem;
+            color: var(--verde-escuro);
+            margin-bottom: 1rem;
+        }
+
+        .opcoes-cana {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        .opcao-cana {
+            background: #f8fbf7;
+            border-radius: 14px;
+            padding: 0.6rem 1.2rem;
+            border: 1px solid #d4e8ce;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+            transition: border var(--transition), background var(--transition);
+        }
+
+        .opcao-cana:hover {
+            border-color: var(--amarelo);
+            background: #fefce8;
+        }
+
+        .opcao-cana .tamanho {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #2d4a2a;
+        }
+
+        .opcao-cana .preco-cana {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--verde-escuro);
+        }
+
+        .btn-add-cana {
+            background: var(--amarelo);
+            border: none;
+            border-radius: 40px;
+            padding: 0.5rem 1.4rem;
+            font-weight: 700;
+            color: #1e3b1e;
+            cursor: pointer;
+            transition: background var(--transition), transform 0.15s, box-shadow var(--transition);
+            border: 1px solid #dbbd00;
+            margin-top: 0.3rem;
+        }
+
+        .btn-add-cana:hover {
+            background: var(--amarelo-escuro);
+            transform: scale(1.03);
+            box-shadow: 0 4px 12px rgba(230, 194, 0, 0.25);
+        }
+
+        /* ===== COMBOS ===== */
+        .card-combo {
+            background: var(--branco);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--sombra);
+            border: 1px solid #eef7ec;
+            max-width: 600px;
+            margin-top: 0.5rem;
+            transition: box-shadow var(--transition);
+        }
+
+        .card-combo:hover {
+            box-shadow: var(--sombra-hover);
+        }
+
+        .card-combo h3 {
+            font-size: 1.4rem;
+            color: var(--verde-escuro);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .combo-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            align-items: flex-end;
+        }
+
+        .combo-selector .campo {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1 1 160px;
+        }
+
+        .combo-selector .campo label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #2d4a2a;
+        }
+
+        .combo-selector .campo select {
+            padding: 0.6rem 0.8rem;
+            border-radius: 12px;
+            border: 1px solid #d4e8ce;
+            background: #f8fbf7;
+            font-weight: 500;
+            color: #1e3b1e;
+            outline: none;
+            transition: border var(--transition), box-shadow var(--transition);
+            width: 100%;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%233a6b3a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+        }
+
+        .combo-selector .campo select:focus {
+            border-color: var(--amarelo);
+            box-shadow: 0 0 0 3px rgba(249, 215, 28, 0.2);
+        }
+
+        .combo-preco {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--verde-escuro);
+            background: #eef7ec;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.2rem;
+        }
+
+        .btn-add-combo {
+            background: var(--amarelo);
+            border: none;
+            border-radius: 40px;
+            padding: 0.7rem 2rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1e3b1e;
+            cursor: pointer;
+            transition: background var(--transition), transform 0.15s, box-shadow var(--transition);
+            border: 1px solid #dbbd00;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 0.6rem;
+        }
+
+        .btn-add-combo:hover {
+            background: var(--amarelo-escuro);
+            transform: scale(1.02);
+            box-shadow: 0 4px 16px rgba(230, 194, 0, 0.3);
+        }
+
+        .btn-add-combo:active {
+            transform: scale(0.96);
+        }
+
+        /* ===== BANNER ENTREGA iFOOD ===== */
+        .banner-ifood {
+            background: linear-gradient(135deg, #fef9e7, #fdf3d0);
+            border-radius: var(--radius);
+            padding: 1.2rem 1.8rem;
+            margin: 2.5rem 0 1.5rem;
+            border: 2px solid var(--amarelo);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            justify-content: space-between;
+            box-shadow: 0 4px 16px rgba(249, 215, 28, 0.15);
+        }
+
+        .banner-ifood .msg {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2d4a2a;
+        }
+
+        .banner-ifood .msg i {
+            font-size: 1.8rem;
+            color: #ea1d2c;
+        }
+
+        .banner-ifood .msg strong {
+            color: #d32f2f;
+        }
+
+        .banner-ifood .btn-ifood-banner {
+            background: #ea1d2c;
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background var(--transition), transform 0.15s;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(234, 29, 44, 0.25);
+        }
+
+        .banner-ifood .btn-ifood-banner:hover {
+            background: #c41724;
+            transform: scale(1.03);
+        }
+
+        @media (max-width: 600px) {
+            .banner-ifood {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .banner-ifood .msg {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ===== CARRINHO FLUTUANTE ===== */
+        .cart-fab {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--amarelo);
+            color: #1e3b1e;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            transition: transform var(--transition), box-shadow var(--transition);
+            border: none;
+            z-index: 200;
+        }
+
+        .cart-fab:hover {
+            transform: scale(1.08) rotate(-4deg);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+        }
+
+        .cart-fab .badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #d32f2f;
+            color: #fff;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            border: 2px solid var(--branco);
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.aberto {
+            display: flex;
+        }
+
+        .modal-cart {
+            background: var(--branco);
+            border-radius: 28px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            padding: 2rem 2rem 1.5rem;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-cart .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e9f3e5;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-cart .modal-header h2 {
+            font-size: 1.5rem;
+            color: var(--verde-escuro);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-cart .fechar-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #6b8a66;
+            transition: color var(--transition), transform 0.15s;
+            line-height: 1;
+        }
+
+        .modal-cart .fechar-modal:hover {
+            color: #2d4a2a;
+            transform: rotate(90deg);
+        }
+
+        .lista-carrinho {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding-right: 4px;
+        }
+
+        .item-carrinho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #ecf5e9;
+            animation: fadeItem 0.2s ease;
+        }
+
+        @keyframes fadeItem {
+            from {
+                opacity: 0;
+                transform: translateX(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .item-carrinho .info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .item-carrinho .info .nome-item {
+            font-weight: 600;
+            color: #1e3b1e;
+        }
+
+        .item-carrinho .info .detalhe-item {
+            font-size: 0.85rem;
+            color: #5f7a5a;
+        }
+
+        .item-carrinho .qtd-preco {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .item-carrinho .qtd-preco .qtd {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .item-carrinho .qtd-preco .qtd button {
+            background: #e9f3e5;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background var(--transition), transform 0.1s;
+            color: #1e3b1e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-carrinho .qtd-preco .qtd button:hover {
+            background: #d0e4c9;
+            transform: scale(1.05);
+        }
+
+        .item-carrinho .qtd-preco .qtd span {
+            min-width: 24px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .item-carrinho .qtd-preco .preco-item {
+            font-weight: 700;
+            color: var(--verde-escuro);
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .item-carrinho .remover-item {
+            background: none;
+            border: none;
+            color: #b0b0b0;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0 4px;
+            transition: color var(--transition), transform 0.15s;
+        }
+
+        .item-carrinho .remover-item:hover {
+            color: #d32f2f;
+            transform: scale(1.2);
+        }
+
+        .carrinho-vazio {
+            text-align: center;
+            color: #8aaa84;
+            padding: 2.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .carrinho-vazio i {
+            font-size: 3rem;
+            margin-bottom: 0.8rem;
+            display: block;
+            color: #cde0c8;
+        }
+
+        .modal-footer {
+            border-top: 2px solid #e9f3e5;
+            padding-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .modal-footer .total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--verde-escuro);
+        }
+
+        .modal-footer .botoes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .modal-footer .botoes button {
+            flex: 1;
+            padding: 0.7rem 0;
+            border-radius: 40px;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background var(--transition), transform 0.15s, box-shadow var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-limpar {
+            background: #f0f0f0;
+            color: #4a4a4a;
+        }
+
+        .btn-limpar:hover {
+            background: #e0e0e0;
+            transform: scale(1.02);
+        }
+
+        .btn-finalizar {
+            background: #25D366;
+            color: #fff;
+        }
+
+        .btn-finalizar:hover {
+            background: #1ebe5a;
+            transform: scale(1.02);
+            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-finalizar i {
+            font-size: 1.1rem;
+        }
+
+        .aviso-retirada {
+            font-size: 0.85rem;
+            color: #5f7a5a;
+            background: #f4faf2;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            text-align: center;
+            border: 1px solid #d4e8ce;
+        }
+
+        .aviso-retirada i {
+            margin-right: 6px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--branco);
+            border-top: 2px solid #e9f3e5;
+            padding: 2rem 1.5rem 1.5rem;
+            margin-top: 3rem;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.02);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .footer-col {
+            flex: 1 1 200px;
+            min-width: 160px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            color: var(--verde-escuro);
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-col p,
+        .footer-col a {
+            font-size: 0.95rem;
+            color: #3d5a3a;
+            line-height: 1.6;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-col a:hover {
+            color: var(--verde-escuro);
+            text-decoration: underline;
+        }
+
+        .footer-col i {
+            width: 20px;
+            color: var(--amarelo-escuro);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 1.5rem auto 0;
+            padding-top: 1rem;
+            border-top: 1px solid #e5f0e0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #7a9a74;
+        }
+
+        .btn-ifood-footer {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ea1d2c;
+            color: #fff;
+            padding: 0.4rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background var(--transition), transform 0.15s;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-ifood-footer:hover {
+            background: #c41724;
+            transform: scale(1.03);
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-msg-ifood {
+            margin-top: 0.6rem;
+            font-size: 0.85rem;
+            color: #5f7a5a;
+            background: #fef9e7;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            display: inline-block;
+            border: 1px solid var(--amarelo);
+        }
+
+        .footer-msg-ifood i {
+            color: #ea1d2c;
+            margin-right: 6px;
+        }
+
+        @media (max-width: 600px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .footer-col {
+                flex: 1 1 auto;
+            }
+            .footer-msg-ifood {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 600px) {
+            .grid-pasteis {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
+            }
+            .card-pastel {
+                padding: 0.8rem;
+            }
+            .card-pastel .nome {
+                font-size: 0.9rem;
+            }
+            .modal-cart {
+                padding: 1.2rem;
+                max-height: 95vh;
+            }
+            .cart-fab {
+                width: 56px;
+                height: 56px;
+                font-size: 1.6rem;
+                bottom: 18px;
+                right: 18px;
+            }
+            .combo-selector {
+                flex-direction: column;
+            }
+            .combo-selector .campo {
+                flex: 1 1 auto;
+                width: 100%;
+            }
+            .banner-ifood {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .grid-pasteis {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER COM LOGO ===== -->
+    <header>
+        <div class="logo-area">
+            <!-- Substitua o src pela sua imagem. Mantenha a classe logo-img -->
+            <img src="/logo.jpeg" width='100' height='100' alt="Logo Rei do Pastel" class="logo-img" id="logoImg" />
+            <div class="logo-text">
+                <h1>Rei do Pastel</h1>
+                <span class="sub"><i class="fas fa-store"></i> Retirada na loja</span>
+            </div>
+        </div>
+        <div class="header-aviso">
+            <i class="fas fa-exclamation-circle"></i> Apenas retirada · sem delivery
+        </div>
+    </header>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="container">
+
+        <!-- PASTÉIS -->
+        <h2 class="secao-titulo"><i class="fas fa-pizza-slice"></i> Pastéis</h2>
+        <div class="grid-pasteis" id="listaPasteis"></div>
+
+        <!-- CALDO DE CANA -->
+        <h2 class="secao-titulo" style="margin-top:2.5rem;"><i class="fas fa-glass-whiskey"></i> Caldo de Cana</h2>
+        <div class="card-cana">
+            <h3>Escolha o tamanho</h3>
+            <div class="opcoes-cana">
+                <div class="opcao-cana">
+                    <span class="tamanho">300 ml</span>
+                    <span class="preco-cana">R$ 6,00</span>
+                    <button class="btn-add-cana" data-tamanho="300ml" data-preco="6.00">
+                        <i class="fas fa-plus"></i> Adicionar
+                    </button>
+                </div>
+                <div class="opcao-cana">
+                    <span class="tamanho">500 ml</span>
+                    <span class="preco-cana">R$ 10,00</span>
+                    <button class="btn-add-cana" data-tamanho="500ml" data-preco="10.00">
+                        <i class="fas fa-plus"></i> Adicionar
+                    </button>
+                </div>
+                <div class="opcao-cana">
+                    <span class="tamanho">1 Litro</span>
+                    <span class="preco-cana">R$ 15,00</span>
+                    <button class="btn-add-cana" data-tamanho="1L" data-preco="15.00">
+                        <i class="fas fa-plus"></i> Adicionar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== COMBOS ===== -->
+        <h2 class="secao-titulo" style="margin-top:2.5rem;"><i class="fas fa-gem"></i> Combos</h2>
+        <div class="card-combo">
+            <h3><i class="fas fa-utensils" style="color:var(--amarelo-escuro);"></i> Monte seu combo</h3>
+            <p style="color:#5f7a5a; margin-bottom:1rem;">
+                Escolha um pastel e um tamanho de caldo de cana. <strong>Ganhe R$ 2,00 de desconto</strong> no combo!
+            </p>
+            <div class="combo-selector">
+                <div class="campo">
+                    <label for="comboPastel"><i class="fas fa-pizza-slice"></i> Pastel</label>
+                    <select id="comboPastel"></select>
+                </div>
+                <div class="campo">
+                    <label for="comboCana"><i class="fas fa-glass-whiskey"></i> Cana</label>
+                    <select id="comboCana">
+                        <option value="300ml" data-preco="6.00">300 ml – R$ 6,00</option>
+                        <option value="500ml" data-preco="10.00">500 ml – R$ 10,00</option>
+                        <option value="1L" data-preco="15.00">1 Litro – R$ 15,00</option>
+                    </select>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px; flex:0 0 auto;">
+                    <span style="font-weight:600; font-size:0.9rem; color:#2d4a2a;">Preço do combo</span>
+                    <span class="combo-preco" id="comboPrecoDisplay">R$ 18,00</span>
+                </div>
+            </div>
+            <button class="btn-add-combo" id="btnAddCombo">
+                <i class="fas fa-plus-circle"></i> Adicionar combo
+            </button>
+        </div>
+
+        <!-- ===== BANNER iFOOD ===== -->
+        <div class="banner-ifood">
+            <div class="msg">
+                <i class="fas fa-truck"></i>
+                <span>
+                    <strong>Entregamos apenas pelo iFood!</strong>
+                    <span style="font-weight:400;"> – Pedidos pelo site são para retirada na loja.</span>
+                </span>
+            </div>
+            <a href="https://www.ifood.com.br/delivery/valparaiso-de-goias-go/rei-do-pastel-chacaras-anhanguera/c4892c4a-cb78-4d4a-beec-97998a276abf" class="btn-ifood-banner" target="_blank">
+                <i class="fas fa-shopping-bag"></i> Pedir no iFood
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4><i class="fas fa-map-pin"></i> Endereço</h4>
+                <p><i class="fas fa-location-dot"></i> R. Um - Chácaras Anhanguera</p>
+                <p><i class="fas fa-city"></i> Valparaíso de Goiás - GO , 74392-130</p>
+            </div>
+            <div class="footer-col">
+                <h4><i class="fas fa-phone"></i> Contato</h4>
+                <p><i class="fas fa-whatsapp"></i> (61) 99589-8075</p>
+            </div>
+            <div class="footer-col">
+                <h4><i class="fas fa-utensils"></i> Peça também</h4>
+                <a href="https://www.ifood.com.br/delivery/valparaiso-de-goias-go/rei-do-pastel-chacaras-anhanguera/c4892c4a-cb78-4d4a-beec-97998a276abf" class="btn-ifood-footer" target="_blank">
+                    <i class="fas fa-shopping-bag"></i> iFood
+                </a>
+                <div class="footer-msg-ifood">
+                    <i class="fas fa-truck"></i> Entregamos <strong>apenas</strong> pelo iFood
+                </div>
+                <p style="margin-top:0.6rem; font-size:0.85rem; color:#7a9a74;">
+                    <i class="fas fa-clock"></i> Aberto de terça a domingo
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Rei do Pastel – Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <!-- ===== BOTÃO CARRINHO FLUTUANTE ===== -->
+    <button class="cart-fab" id="abrirCarrinhoBtn" aria-label="Abrir carrinho">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="badge" id="cartBadge">0</span>
+    </button>
+
+    <!-- ===== MODAL CARRINHO ===== -->
+    <div class="modal-overlay" id="modalCarrinho">
+        <div class="modal-cart">
+            <div class="modal-header">
+                <h2><i class="fas fa-shopping-bag" style="color:var(--amarelo-escuro);"></i> Meu Carrinho</h2>
+                <button class="fechar-modal" id="fecharCarrinhoBtn">&times;</button>
+            </div>
+            <div class="lista-carrinho" id="listaCarrinho">
+                <div class="carrinho-vazio">
+                    <i class="fas fa-shopping-bag"></i>
+                    Seu carrinho está vazio
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="total">
+                    <span>Total:</span>
+                    <span id="totalCarrinho">R$ 0,00</span>
+                </div>
+                <div class="botoes">
+                    <button class="btn-limpar" id="limparCarrinhoBtn"><i class="fas fa-trash-alt"></i> Limpar</button>
+                    <button class="btn-finalizar" id="finalizarPedidoBtn"><i class="fab fa-whatsapp"></i> Finalizar pedido</button>
+                </div>
+                <div class="aviso-retirada">
+                    <i class="fas fa-store"></i> Apenas retirada na loja · Não entregamos
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  DADOS
+        // ============================================================
+
+        const pasteis = [
+            { id: 1, nome: 'Carne' },
+            { id: 2, nome: 'Carne com Queijo' },
+            { id: 3, nome: 'Carne / Milho / Calabresa / Queijo' },
+            { id: 4, nome: 'Carne / Azeitona / Tomate / Queijo' },
+            { id: 5, nome: 'Carne / Palmito / Azeitona / Queijo' },
+            { id: 6, nome: 'Carne / Cream Cheese / Queijo' },
+            { id: 7, nome: 'Carne / Cheddar / Queijo' },
+            { id: 8, nome: 'Carne / Catupiry / Queijo' },
+            { id: 9, nome: 'Carne Seca / Queijo' },
+            { id: 10, nome: 'Carne Seca / Cream Cheese / Queijo' },
+            { id: 11, nome: 'Costela com Queijo' },
+            { id: 12, nome: 'Frango' },
+            { id: 13, nome: 'Frango com Queijo' },
+            { id: 14, nome: 'Frango Catupiry e Queijo' },
+            { id: 15, nome: 'Frango Cheddar e Queijo' },
+            { id: 16, nome: 'Frango Cream Cheese e Queijo' },
+            { id: 17, nome: 'Frango Requeijão e Queijo' },
+            { id: 18, nome: 'Calabresa com Queijo' },
+            { id: 19, nome: 'Calabresa Catupiry e Queijo' },
+            { id: 20, nome: 'Calabresa Cheddar e Queijo' },
+            { id: 21, nome: 'Presunto e Queijo' },
+            { id: 22, nome: 'Pizza - Presunto / Tomate / Queijo' },
+            { id: 23, nome: 'Camarão Cream Cheese e Queijo' },
+            { id: 24, nome: 'Camarão / Queijo e Requeijão' },
+            { id: 25, nome: 'Queijo' },
+            { id: 26, nome: 'Banana / Queijo e Canela' },
+            { id: 27, nome: 'Banana / Chocolate e Queijo' },
+            { id: 28, nome: 'Banana Nutella e Queijo' },
+            { id: 29, nome: 'Nutella com Queijo' },
+            { id: 30, nome: 'Nutella com Morango' }
+        ];
+
+        function getPrecoPastel(id) {
+            const baratos = [1, 12, 25];
+            const intermediarios = [2, 13, 18, 21, 26];
+            const carne = [3, 4, 5];
+            const caros = [6, 10, 16, 27, 28, 30];
+            const especiais = [9, 10, 14, 23, 24];
+            if (baratos.includes(id)) return 10.00;
+            else if (intermediarios.includes(id)) return 12.00;
+            else if (carne.includes(id)) return 15.00;
+            else if (caros.includes(id)) return 16.00;
+            else if (especiais.includes(id)) return 26.00;
+            return 14.00;
+        }
+
+        const precosCana = { '300ml': 6.00, '500ml': 8.00, '1L': 15.00 };
+        const DESCONTO_COMBO = 2.00;
+
+        // ============================================================
+        //  CARRINHO
+        // ============================================================
+
+        let carrinho = [];
+
+        // ============================================================
+        //  DOM REFS
+        // ============================================================
+
+        const listaPasteisEl = document.getElementById('listaPasteis');
+        const listaCarrinhoEl = document.getElementById('listaCarrinho');
+        const totalCarrinhoEl = document.getElementById('totalCarrinho');
+        const cartBadge = document.getElementById('cartBadge');
+        const modalCarrinho = document.getElementById('modalCarrinho');
+        const abrirCarrinhoBtn = document.getElementById('abrirCarrinhoBtn');
+        const fecharCarrinhoBtn = document.getElementById('fecharCarrinhoBtn');
+        const limparCarrinhoBtn = document.getElementById('limparCarrinhoBtn');
+        const finalizarPedidoBtn = document.getElementById('finalizarPedidoBtn');
+
+        const comboPastelSelect = document.getElementById('comboPastel');
+        const comboCanaSelect = document.getElementById('comboCana');
+        const comboPrecoDisplay = document.getElementById('comboPrecoDisplay');
+        const btnAddCombo = document.getElementById('btnAddCombo');
+
+        // ============================================================
+        //  RENDER PASTÉIS
+        // ============================================================
+
+        function renderizarPasteis() {
+            listaPasteisEl.innerHTML = '';
+            pasteis.forEach(p => {
+                const preco = getPrecoPastel(p.id);
+                const card = document.createElement('div');
+                card.className = 'card-pastel';
+                card.innerHTML = `
+                    <span class="numero">#${p.id}</span>
+                    <div class="nome">${p.nome}</div>
+                    <div class="preco">R$ ${preco.toFixed(2)} <small>cada</small></div>
+                    <button class="btn-add" data-id="${p.id}" data-nome="${p.nome}" data-preco="${preco}">
+                        <i class="fas fa-plus-circle"></i> Adicionar
+                    </button>
+                `;
+                listaPasteisEl.appendChild(card);
+            });
+
+            document.querySelectorAll('.card-pastel .btn-add').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.dataset.id);
+                    const nome = this.dataset.nome;
+                    const preco = parseFloat(this.dataset.preco);
+                    adicionarItem({ id, nome, preco, tipo: 'pastel' });
+                });
+            });
+        }
+
+        // ============================================================
+        //  POPULAR SELECT DE COMBOS
+        // ============================================================
+
+        function popularComboSelect() {
+            comboPastelSelect.innerHTML = '';
+            pasteis.forEach(p => {
+                const preco = getPrecoPastel(p.id);
+                const option = document.createElement('option');
+                option.value = p.id;
+                option.textContent = `${p.nome} (R$ ${preco.toFixed(2)})`;
+                option.dataset.preco = preco;
+                comboPastelSelect.appendChild(option);
+            });
+            atualizarPrecoCombo();
+        }
+
+        function atualizarPrecoCombo() {
+            const pastelId = parseInt(comboPastelSelect.value);
+            const precoPastel = getPrecoPastel(pastelId);
+            const canaSize = comboCanaSelect.value;
+            const precoCana = precosCana[canaSize] || 0;
+            const total = precoPastel + precoCana - DESCONTO_COMBO;
+            comboPrecoDisplay.textContent = `R$ ${total.toFixed(2)}`;
+            return total;
+        }
+
+        // ============================================================
+        //  CALDO DE CANA - EVENTOS
+        // ============================================================
+
+        document.querySelectorAll('.btn-add-cana').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tamanho = this.dataset.tamanho;
+                const preco = parseFloat(this.dataset.preco);
+                const nome = `Caldo de Cana ${tamanho}`;
+                const id = `cana-${tamanho}`;
+                adicionarItem({ id, nome, preco, tipo: 'cana' });
+            });
+        });
+
+        // ============================================================
+        //  ADICIONAR COMBO
+        // ============================================================
+
+        btnAddCombo.addEventListener('click', function() {
+            const pastelId = parseInt(comboPastelSelect.value);
+            const pastelNome = pasteis.find(p => p.id === pastelId)?.nome || 'Pastel';
+            const precoPastel = getPrecoPastel(pastelId);
+            const canaSize = comboCanaSelect.value;
+            const precoCana = precosCana[canaSize] || 0;
+            const total = precoPastel + precoCana - DESCONTO_COMBO;
+            const nomeCombo = `Combo: ${pastelNome} + Cana ${canaSize}`;
+            const idCombo = `combo-${pastelId}-${canaSize}`;
+            adicionarItem({ id: idCombo, nome: nomeCombo, preco: total, tipo: 'combo' });
+        });
+
+        comboPastelSelect.addEventListener('change', atualizarPrecoCombo);
+        comboCanaSelect.addEventListener('change', atualizarPrecoCombo);
+
+        // ============================================================
+        //  FUNÇÕES DO CARRINHO
+        // ============================================================
+
+        function adicionarItem(item) {
+            const existente = carrinho.find(i => i.id === item.id && i.tipo === item.tipo);
+            if (existente) {
+                existente.quantidade += 1;
+            } else {
+                carrinho.push({ ...item, quantidade: 1 });
+            }
+            atualizarInterface();
+            const btn = document.querySelector(`[data-id="${item.id}"]`) || event?.target?.closest?.('button');
+            if (btn) {
+                btn.style.transform = 'scale(0.92)';
+                setTimeout(() => btn.style.transform = '', 150);
+            }
+        }
+
+        function removerItem(id, tipo) {
+            const index = carrinho.findIndex(i => i.id === id && i.tipo === tipo);
+            if (index !== -1) {
+                if (carrinho[index].quantidade > 1) {
+                    carrinho[index].quantidade -= 1;
+                } else {
+                    carrinho.splice(index, 1);
+                }
+                atualizarInterface();
+            }
+        }
+
+        function excluirItemCompleto(id, tipo) {
+            const index = carrinho.findIndex(i => i.id === id && i.tipo === tipo);
+            if (index !== -1) {
+                carrinho.splice(index, 1);
+                atualizarInterface();
+            }
+        }
+
+        function limparCarrinho() {
+            carrinho = [];
+            atualizarInterface();
+        }
+
+        function getTotal() {
+            return carrinho.reduce((acc, i) => acc + i.preco * i.quantidade, 0);
+        }
+
+        function getQuantidadeTotal() {
+            return carrinho.reduce((acc, i) => acc + i.quantidade, 0);
+        }
+
+        // ============================================================
+        //  ATUALIZAR INTERFACE
+        // ============================================================
+
+        function atualizarInterface() {
+            const qtd = getQuantidadeTotal();
+            cartBadge.textContent = qtd;
+            cartBadge.style.display = qtd > 0 ? 'flex' : 'none';
+
+            if (carrinho.length === 0) {
+                listaCarrinhoEl.innerHTML = `
+                    <div class="carrinho-vazio">
+                        <i class="fas fa-shopping-bag"></i>
+                        Seu carrinho está vazio
+                    </div>
+                `;
+                totalCarrinhoEl.textContent = 'R$ 0,00';
+                return;
+            }
+
+            let html = '';
+            carrinho.forEach(item => {
+                const precoTotal = (item.preco * item.quantidade).toFixed(2);
+                html += `
+                    <div class="item-carrinho" data-id="${item.id}" data-tipo="${item.tipo}">
+                        <div class="info">
+                            <span class="nome-item">${item.nome}</span>
+                            <span class="detalhe-item">R$ ${item.preco.toFixed(2)} cada</span>
+                        </div>
+                        <div class="qtd-preco">
+                            <div class="qtd">
+                                <button class="btn-qtd-menos" data-id="${item.id}" data-tipo="${item.tipo}">−</button>
+                                <span>${item.quantidade}</span>
+                                <button class="btn-qtd-mais" data-id="${item.id}" data-tipo="${item.tipo}">+</button>
+                            </div>
+                            <span class="preco-item">R$ ${precoTotal}</span>
+                            <button class="remover-item" data-id="${item.id}" data-tipo="${item.tipo}" title="Remover item">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            listaCarrinhoEl.innerHTML = html;
+
+            listaCarrinhoEl.querySelectorAll('.btn-qtd-mais').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    const tipo = this.dataset.tipo;
+                    const item = carrinho.find(i => i.id === id && i.tipo === tipo);
+                    if (item) {
+                        item.quantidade += 1;
+                        atualizarInterface();
+                    }
+                });
+            });
+            listaCarrinhoEl.querySelectorAll('.btn-qtd-menos').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    const tipo = this.dataset.tipo;
+                    removerItem(id, tipo);
+                });
+            });
+            listaCarrinhoEl.querySelectorAll('.remover-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    const tipo = this.dataset.tipo;
+                    excluirItemCompleto(id, tipo);
+                });
+            });
+
+            totalCarrinhoEl.textContent = `R$ ${getTotal().toFixed(2)}`;
+        }
+
+        // ============================================================
+        //  MODAL
+        // ============================================================
+
+        function abrirModal() {
+            modalCarrinho.classList.add('aberto');
+            document.body.style.overflow = 'hidden';
+            atualizarInterface();
+        }
+
+        function fecharModal() {
+            modalCarrinho.classList.remove('aberto');
+            document.body.style.overflow = '';
+        }
+
+        abrirCarrinhoBtn.addEventListener('click', abrirModal);
+        fecharCarrinhoBtn.addEventListener('click', fecharModal);
+        modalCarrinho.addEventListener('click', function(e) {
+            if (e.target === this) fecharModal();
+        });
+
+        limparCarrinhoBtn.addEventListener('click', function() {
+            if (carrinho.length === 0) return;
+            if (confirm('Tem certeza que deseja esvaziar o carrinho?')) {
+                limparCarrinho();
+            }
+        });
+
+        // ============================================================
+        //  FINALIZAR PEDIDO → WHATSAPP
+        // ============================================================
+
+        finalizarPedidoBtn.addEventListener('click', function() {
+            if (carrinho.length === 0) {
+                alert('Seu carrinho está vazio! Adicione alguns itens antes de finalizar.');
+                return;
+            }
+
+            let mensagem = '🍽️ *PEDIDO - REI DO PASTEL* 🍽️\n\n';
+            mensagem += '📋 *Itens:*\n';
+            carrinho.forEach(item => {
+                mensagem += `  • ${item.quantidade}x ${item.nome}  (R$ ${(item.preco * item.quantidade).toFixed(2)})\n`;
+            });
+            mensagem += `\n💰 *Total: R$ ${getTotal().toFixed(2)}*\n\n`;
+            mensagem += '🛍️ *Retirada na loja* (não entregamos)\n';
+            mensagem += '📍 *Endereço:* Rua dos Pastéis, 1000 – Centro, São Paulo – SP\n';
+            mensagem += '📞 *Contato:* (11) 99999-9999\n\n';
+            mensagem += '✅ *Confirme seu pedido e aguarde a confirmação.*';
+
+            const numero = '5511999999999';
+            const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+
+            if (confirm('Pedido enviado! Deseja limpar o carrinho agora?')) {
+                limparCarrinho();
+                fecharModal();
+            }
+        });
+
+        // ============================================================
+        //  INICIALIZAÇÃO
+        // ============================================================
+
+        renderizarPasteis();
+        popularComboSelect();
+        atualizarInterface();
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') fecharModal();
+        });
+
+        // ============================================================
+        //  LOGO - TROCA DE IMAGEM (exemplo)
+        // ============================================================
+        // Para usar sua própria imagem, descomente a linha abaixo e substitua o caminho.
+        // document.getElementById('logoImg').src = 'sua-logo.png';
+
+        console.log('🍥 Rei do Pastel - Cardápio estilizado com logo e entrega iFood!');
+    </script>
+</body>
+</html>
